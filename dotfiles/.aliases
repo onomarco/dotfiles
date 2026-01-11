@@ -1,0 +1,163 @@
+# ~/.aliases - Shell aliases
+# Sourced by .zshrc
+
+###############################################################################
+# Navigation                                                                  #
+###############################################################################
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+
+# List with modern tools or fallback to standard ls
+if command -v eza &> /dev/null; then
+    alias ls='eza --icons --group-directories-first'
+    alias ll='eza -l --icons --group-directories-first'
+    alias la='eza -la --icons --group-directories-first'
+    alias lt='eza --tree --level=2 --icons'
+else
+    alias ll='ls -lh'
+    alias la='ls -lah'
+fi
+
+###############################################################################
+# File Operations                                                             #
+###############################################################################
+
+# Safer file operations
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Create parent directories as needed
+alias mkdir='mkdir -p'
+
+# Better cat with syntax highlighting
+if command -v bat &> /dev/null; then
+    alias cat='bat'
+fi
+
+###############################################################################
+# Git Aliases                                                                 #
+###############################################################################
+
+alias g='git'
+alias gs='git status'
+alias ga='git add'
+alias gaa='git add .'
+alias gc='git commit'
+alias gcm='git commit -m'
+alias gp='git push'
+alias gpl='git pull'
+alias gd='git diff'
+alias gco='git checkout'
+alias gb='git branch'
+alias gl='git log --oneline --graph --decorate'
+alias gla='git log --oneline --graph --decorate --all'
+
+###############################################################################
+# Docker Aliases                                                              #
+###############################################################################
+
+alias d='docker'
+alias dc='docker-compose'
+alias dps='docker ps'
+alias dpsa='docker ps -a'
+alias di='docker images'
+alias dex='docker exec -it'
+alias dlog='docker logs -f'
+alias dstop='docker stop $(docker ps -q)'
+alias drm='docker rm $(docker ps -aq)'
+alias drmi='docker rmi $(docker images -q)'
+
+###############################################################################
+# Python Aliases                                                              #
+###############################################################################
+
+alias py='python3'
+alias python='python3'
+alias pip='python3 -m pip'
+
+# uv shortcuts
+alias uvi='uv pip install'
+alias uvr='uv run'
+alias uvs='uv sync'
+
+###############################################################################
+# Development Aliases                                                         #
+###############################################################################
+
+# Code editors
+alias c='code'
+alias s='subl'
+
+# Quick edit configs
+alias zshrc='${EDITOR:-nano} ~/.zshrc'
+alias aliases='${EDITOR:-nano} ~/.aliases'
+alias gitconfig='${EDITOR:-nano} ~/.gitconfig'
+
+# Reload shell config
+alias reload='source ~/.zshrc'
+
+###############################################################################
+# Utilities                                                                   #
+###############################################################################
+
+# Grep with color
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Use ripgrep if available
+if command -v rg &> /dev/null; then
+    alias rg='rg --smart-case'
+fi
+
+# Disk usage
+alias du='du -h'
+alias df='df -h'
+
+# Process management
+alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
+
+# Network
+alias ports='netstat -tulanp'
+alias myip='curl -s https://api.ipify.org && echo'
+alias localip='ipconfig getifaddr en0'
+
+# Clear screen
+alias c='clear'
+
+# Reload DNS (macOS)
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+
+###############################################################################
+# System (macOS)                                                              #
+###############################################################################
+
+# Show/hide hidden files in Finder
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles YES; killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles NO; killall Finder'
+
+# Lock screen
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+
+# Empty trash
+alias emptytrash='sudo rm -rfv /Volumes/*/.Trashes; sudo rm -rfv ~/.Trash'
+
+# Update everything
+alias update='brew update && brew upgrade && brew cleanup'
+
+###############################################################################
+# Fun                                                                         #
+###############################################################################
+
+# Weather (requires curl)
+alias weather='curl wttr.in'
+
+###############################################################################
+# Custom Aliases (Add your own below)                                        #
+###############################################################################
+
+# Add your custom aliases here

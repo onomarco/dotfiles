@@ -1,0 +1,21 @@
+# Private configuration
+.private
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Backups created by symlink script
+*.backup
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Claude Code
+.claude/

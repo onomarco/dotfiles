@@ -1,0 +1,142 @@
+# ~/.gitconfig - Git configuration
+# Note: User identity should be set in ~/.private
+
+[user]
+    # Set these in ~/.private or manually:
+    # name = Your Name
+    # email = your.email@example.com
+
+[core]
+    editor = code --wait
+    excludesfile = ~/.gitignore_global
+    autocrlf = input
+    # Treat spaces before tabs and all kinds of trailing whitespace as an error
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+
+[init]
+    defaultBranch = main
+
+[push]
+    default = simple
+    autoSetupRemote = true
+    # Automatically push relevant tags
+    followTags = true
+
+[pull]
+    rebase = false
+
+[fetch]
+    prune = true
+
+[diff]
+    tool = vscode
+    # Detect copies as well as renames
+    renames = copies
+
+[difftool]
+    prompt = false
+
+[difftool "vscode"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[merge]
+    tool = vscode
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
+
+[mergetool]
+    prompt = false
+    keepBackup = false
+
+[mergetool "vscode"]
+    cmd = code --wait $MERGED
+
+[color]
+    ui = auto
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[alias]
+    # Short status
+    s = status -s
+
+    # View abbreviated SHA, description, and history graph
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
+
+    # View the current working tree status using the short format
+    st = status
+
+    # Show verbose output about branches
+    br = branch -v
+
+    # Clone a repository including all submodules
+    c = clone --recursive
+
+    # Commit all changes
+    ca = !git add -A && git commit -av
+
+    # Switch to a branch
+    co = checkout
+
+    # Show the diff between the latest commit and the current state
+    d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+    # Pull in remote changes
+    p = pull --rebase
+
+    # Push to remote
+    ps = push
+
+    # Amend the currently staged files to the latest commit
+    amend = commit --amend --reuse-message=HEAD
+
+    # Credit an author on the latest commit
+    credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
+    # Interactive rebase with the given number of latest commits
+    reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+    # Remove branches that have already been merged with main
+    dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+    # List aliases
+    aliases = config --get-regexp alias
+
+    # Show contributors
+    contributors = shortlog --summary --numbered
+
+    # Undo last commit but keep changes
+    undo = reset HEAD~1 --mixed
+
+    # Show files ignored by git
+    ignored = !git ls-files -v | grep "^[[:lower:]]"
+
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+
+[credential]
+    helper = osxkeychain
+
+[help]
+    # Automatically correct and execute mistyped commands
+    autocorrect = 1
+
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process

@@ -1,0 +1,20 @@
+# Private configuration - DO NOT commit this file
+# Copy to ~/.private and fill with your personal data
+
+# Git identity
+export GIT_AUTHOR_NAME="Your Name"
+export GIT_AUTHOR_EMAIL="your.email@example.com"
+export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
+export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
+
+# API Keys (if needed)
+# export OPENAI_API_KEY="sk-..."
+# export ANTHROPIC_API_KEY="sk-ant-..."
+# export GITHUB_TOKEN="ghp_..."
+
+# Custom paths
+# export WORKSPACE="$HOME/workspace"
+# export PROJECTS="$HOME/projects"
+
+# Other environment variables
+# export EDITOR="code"

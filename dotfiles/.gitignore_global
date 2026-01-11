@@ -1,0 +1,218 @@
+# ~/.gitignore_global - Global gitignore patterns
+# Referenced by core.excludesfile in .gitconfig
+
+###############################################################################
+# macOS                                                                       #
+###############################################################################
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+###############################################################################
+# Linux                                                                       #
+###############################################################################
+
+*~
+.directory
+.Trash-*
+
+###############################################################################
+# Windows                                                                     #
+###############################################################################
+
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+###############################################################################
+# Editors                                                                     #
+###############################################################################
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+.netrwhist
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+###############################################################################
+# Version Control                                                             #
+###############################################################################
+
+.svn/
+.hg/
+.bzr/
+
+###############################################################################
+# Python                                                                      #
+###############################################################################
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.hypothesis/
+*.mo
+*.pot
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+uv.lock
+
+###############################################################################
+# Node.js                                                                     #
+###############################################################################
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.eslintcache
+.yarn/
+.pnp.*
+
+###############################################################################
+# Go                                                                          #
+###############################################################################
+
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+###############################################################################
+# Rust                                                                        #
+###############################################################################
+
+target/
+Cargo.lock
+
+###############################################################################
+# Environment & Secrets                                                       #
+###############################################################################
+
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.p12
+secrets.yml
+credentials.json
+
+###############################################################################
+# Build & Dependencies                                                        #
+###############################################################################
+
+*.log
+*.pid
+*.seed
+*.pid.lock
+.cache/
+
+###############################################################################
+# Databases                                                                   #
+###############################################################################
+
+*.db
+*.sqlite
+*.sqlite3
+
+###############################################################################
+# Temporary & Backup Files                                                    #
+###############################################################################
+
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
