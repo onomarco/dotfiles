@@ -17,6 +17,7 @@ print_warning "This script will:"
 print_warning "  - Install Homebrew and packages"
 print_warning "  - Configure macOS system settings"
 print_warning "  - Install Python (uv), Go, and Bun"
+print_warning "  - Install AWS CLI and SAM CLI"
 print_warning "  - Configure Git and SSH for GitHub"
 print_warning "  - Configure VS Code and Sublime Text"
 print_warning "  - Create symlinks for dotfiles (backing up existing files)"
@@ -40,19 +41,22 @@ source "$DOTFILES_DIR/scripts/languages/golang.sh"
 print_section "5. Installing Bun"
 source "$DOTFILES_DIR/scripts/languages/bun.sh"
 
-print_section "6. Configuring Git"
+print_section "6. Installing AWS CLI and SAM CLI"
+source "$DOTFILES_DIR/scripts/aws.sh"
+
+print_section "7. Configuring Git"
 source "$DOTFILES_DIR/scripts/apps/git.sh"
 
-print_section "7. Configuring SSH for GitHub"
+print_section "8. Configuring SSH for GitHub"
 source "$DOTFILES_DIR/scripts/ssh.sh"
 
-print_section "8. Configuring VS Code"
+print_section "9. Configuring VS Code"
 source "$DOTFILES_DIR/scripts/apps/vscode.sh"
 
-print_section "9. Configuring Sublime Text"
+print_section "10. Configuring Sublime Text"
 source "$DOTFILES_DIR/scripts/apps/sublime.sh"
 
-print_section "10. Creating symlinks for dotfiles"
+print_section "11. Creating symlinks for dotfiles"
 source "$DOTFILES_DIR/scripts/symlinks.sh"
 
 # Final steps
@@ -75,5 +79,7 @@ print_info "  4. Verify installations:"
 print_info "     uv --version"
 print_info "     go version"
 print_info "     bun --version"
+print_info "     aws --version"
+print_info "     sam --version"
 echo ""
 print_warning "Some macOS settings may require a logout/restart to take effect"

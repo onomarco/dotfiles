@@ -58,9 +58,10 @@ El script maestro ejecutará automáticamente:
 1. Instalación de Homebrew y paquetes
 2. Configuraciones de macOS
 3. Instalación de lenguajes (Python, Go, Bun)
-4. Configuración de Git y SSH para GitHub
-5. Configuración de aplicaciones (VS Code, Sublime)
-6. Creación de symlinks para dotfiles
+4. Instalación de AWS CLI y SAM CLI
+5. Configuración de Git y SSH para GitHub
+6. Configuración de aplicaciones (VS Code, Sublime)
+7. Creación de symlinks para dotfiles
 
 **Tiempo estimado:** 30-45 minutos (depende de la velocidad de internet)
 
@@ -74,6 +75,7 @@ dotfiles/
 │   ├── utils.sh           # Funciones comunes
 │   ├── macos.sh           # Configuraciones del sistema
 │   ├── brew.sh            # Homebrew + paquetes
+│   ├── aws.sh             # AWS CLI y SAM CLI
 │   ├── ssh.sh             # Configuración SSH para GitHub
 │   ├── symlinks.sh        # Symlinks de dotfiles
 │   ├── languages/         # Python, Go, Bun
@@ -143,11 +145,69 @@ cp .private.example ~/.private
   - `swag` - Documentación Swagger
 - **Bun** - runtime JavaScript moderno
 
+### AWS Tools
+- **AWS CLI** - Línea de comandos de AWS con soporte SSO
+- **SAM CLI** - Desarrollo y deployment de aplicaciones serverless
+- Aliases útiles:
+  - `awswho` - Ver identidad actual
+  - `awslogin` - Login con SSO
+  - `samb` / `samd` / `saml` - Build, deploy, local
+  - `sams` - Sync en tiempo real
+
 ### CLI Tools Modernos
 - `bat` - cat con syntax highlighting
 - `eza` - ls mejorado
 - `ripgrep` - búsqueda ultra rápida
 - `fzf` - fuzzy finder
+
+## Configuración de AWS SSO
+
+El script instala AWS CLI y SAM CLI, y crea una estructura básica para usar AWS SSO (Single Sign-On) en lugar de access keys.
+
+### Configurar AWS SSO
+
+1. **Edita tu configuración de AWS** (`~/.aws/config`):
+   ```ini
+   [profile dev]
+   sso_start_url = https://tu-empresa.awsapps.com/start
+   sso_region = eu-west-1
+   sso_account_id = 123456789012
+   sso_role_name = DeveloperAccess
+   region = eu-west-1
+   output = json
+   ```
+
+2. **Login con SSO**:
+   ```bash
+   aws sso login --profile dev
+   ```
+   Esto abrirá tu navegador para autenticarte.
+
+3. **Usar el perfil**:
+   ```bash
+   # Opción 1: Especificar el perfil en cada comando
+   aws s3 ls --profile dev
+
+   # Opción 2: Exportar como perfil por defecto
+   export AWS_PROFILE=dev
+   aws s3 ls
+   ```
+
+4. **Verificar identidad**:
+   ```bash
+   awswho  # alias para: aws sts get-caller-identity
+   ```
+
+### Aliases útiles de SAM CLI
+
+Después de la instalación, tendrás estos aliases disponibles:
+- `samb` - Build tu aplicación SAM
+- `samd` - Deploy tu aplicación
+- `samdg` - Deploy con modo guiado
+- `saml` - Ejecutar API localmente
+- `samli` - Invocar función localmente
+- `sams` - Sync en tiempo real (hot reload)
+- `sambd` - Build + Deploy en un comando
 
 ## Configuración SSH para GitHub
 
@@ -223,22 +283,36 @@ Después de ejecutar el script:
    - Click en "New SSH key" y pega tu clave
    - Verifica con: `ssh -T git@github.com`
 
-2. **Configura .private**
+2. **Configura AWS SSO**:
+   ```bash
+   # Edita ~/.aws/config con tus datos de SSO
+   nano ~/.aws/config
+
+   # Login con SSO
+   aws sso login --profile dev
+
+   # Verifica que funciona
+   awswho
+   ```
+
+3. **Configura .private**:
    ```bash
    cp .private.example ~/.private
    nano ~/.private
    ```
 
-3. **Reinicia la terminal** o ejecuta:
+4. **Reinicia la terminal** o ejecuta:
    ```bash
    source ~/.zshrc
    ```
 
-4. **Verifica instalaciones**:
+5. **Verifica instalaciones**:
    ```bash
    uv --version
    go version
    bun --version
+   aws --version
+   sam --version
    ```
 
 ## Mantenimiento

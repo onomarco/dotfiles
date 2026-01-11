@@ -157,6 +157,30 @@ alias update='brew update && brew upgrade && brew cleanup'
 alias weather='curl wttr.in'
 
 ###############################################################################
+# AWS and SAM CLI                                                             #
+###############################################################################
+
+# AWS identity and profile management
+alias awswho='aws sts get-caller-identity'
+alias awsprofiles='aws configure list-profiles'
+alias awslogin='aws sso login'
+alias awslogout='aws sso logout'
+
+# SAM CLI shortcuts
+alias samb='sam build'
+alias samd='sam deploy'
+alias samdg='sam deploy --guided'
+alias saml='sam local start-api'
+alias samli='sam local invoke'
+alias samlogs='sam logs --tail'
+alias samv='sam validate'
+alias sams='sam sync --watch'
+
+# Combined shortcuts
+alias sambd='sam build && sam deploy'
+alias sambdg='sam build && sam deploy --guided'
+
+###############################################################################
 # Custom Aliases (Add your own below)                                        #
 ###############################################################################
 
