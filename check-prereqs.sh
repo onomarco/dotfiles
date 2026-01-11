@@ -5,41 +5,16 @@
 
 set -e
 
-# Color codes
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+# Get the directory where this script is located
+DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-print_header() {
-    echo ""
-    echo -e "${BLUE}========================================${NC}"
-    echo -e "${BLUE}  Dotfiles Installation Prerequisites${NC}"
-    echo -e "${BLUE}========================================${NC}"
-    echo ""
-}
-
-print_success() {
-    echo -e "${GREEN}[✓]${NC} $1"
-}
-
-print_error() {
-    echo -e "${RED}[✗]${NC} $1"
-}
-
-print_warning() {
-    echo -e "${YELLOW}[!]${NC} $1"
-}
-
-print_info() {
-    echo -e "${BLUE}[i]${NC} $1"
-}
+# Source utilities
+source "$DOTFILES_DIR/scripts/utils.sh"
 
 # Track if all checks pass
 ALL_CHECKS_PASSED=true
 
-print_header
+print_section "Dotfiles Installation Prerequisites"
 
 ###############################################################################
 # Check 1: macOS                                                              #
@@ -185,23 +160,23 @@ echo ""
 # Summary                                                                     #
 ###############################################################################
 
-echo -e "${BLUE}========================================${NC}"
+print_section "Summary"
+
 if [ "$ALL_CHECKS_PASSED" = true ]; then
-    echo -e "${GREEN}✓ All prerequisites met!${NC}"
+    print_success "All prerequisites met!"
     echo ""
-    echo "You can now run the installation:"
-    echo -e "  ${BLUE}./install.sh${NC}"
+    print_info "You can now run the installation:"
+    print_info "  ./install.sh"
 else
-    echo -e "${RED}✗ Some prerequisites are missing${NC}"
+    print_error "Some prerequisites are missing"
     echo ""
-    echo "Please fix the issues above before running install.sh"
+    print_warning "Please fix the issues above before running install.sh"
     echo ""
-    echo "Quick fixes:"
-    echo "  1. Install Command Line Tools: xcode-select --install"
-    echo "  2. Ensure you have admin access"
-    echo "  3. Connect to the internet"
+    print_info "Quick fixes:"
+    print_info "  1. Install Command Line Tools: xcode-select --install"
+    print_info "  2. Ensure you have admin access"
+    print_info "  3. Connect to the internet"
 fi
-echo -e "${BLUE}========================================${NC}"
 echo ""
 
 # Exit with appropriate code
