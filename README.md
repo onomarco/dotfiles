@@ -58,8 +58,9 @@ El script maestro ejecutará automáticamente:
 1. Instalación de Homebrew y paquetes
 2. Configuraciones de macOS
 3. Instalación de lenguajes (Python, Go, Bun)
-4. Configuración de aplicaciones (Git, VS Code, Sublime)
-5. Creación de symlinks para dotfiles
+4. Configuración de Git y SSH para GitHub
+5. Configuración de aplicaciones (VS Code, Sublime)
+6. Creación de symlinks para dotfiles
 
 **Tiempo estimado:** 30-45 minutos (depende de la velocidad de internet)
 
@@ -73,6 +74,7 @@ dotfiles/
 │   ├── utils.sh           # Funciones comunes
 │   ├── macos.sh           # Configuraciones del sistema
 │   ├── brew.sh            # Homebrew + paquetes
+│   ├── ssh.sh             # Configuración SSH para GitHub
 │   ├── symlinks.sh        # Symlinks de dotfiles
 │   ├── languages/         # Python, Go, Bun
 │   └── apps/              # Git, VS Code, Sublime
@@ -137,22 +139,92 @@ cp .private.example ~/.private
 - `ripgrep` - búsqueda ultra rápida
 - `fzf` - fuzzy finder
 
+## Configuración SSH para GitHub
+
+El script configura automáticamente SSH para autenticarte con GitHub. Hay dos flujos posibles:
+
+### Opción A: Clonar con HTTPS primero (Recomendado para primera instalación)
+
+```bash
+# 1. Clonar con HTTPS
+git clone https://github.com/onomarco/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# 2. Ejecutar instalación (genera claves SSH automáticamente)
+./install.sh
+
+# 3. Añadir clave pública a GitHub
+# El script mostrará tu clave pública al finalizar
+# Cópiala y añádela en: https://github.com/settings/keys
+
+# 4. Verificar conexión SSH
+ssh -T git@github.com
+```
+
+### Opción B: Configurar SSH manualmente primero
+
+```bash
+# 1. Generar clave SSH
+ssh-keygen -t ed25519 -C "tu@email.com"
+
+# 2. Copiar clave pública
+pbcopy < ~/.ssh/id_ed25519.pub
+
+# 3. Añadir a GitHub
+# Ve a: https://github.com/settings/keys
+# Pega tu clave y guarda
+
+# 4. Clonar con SSH
+git clone git@github.com:onomarco/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+
+# 5. Ejecutar instalación
+./install.sh
+```
+
+### ¿Qué hace el script SSH?
+
+- Genera claves SSH (ed25519) si no existen
+- Crea `~/.ssh/config` con configuración optimizada
+- Añade la clave al ssh-agent de macOS
+- Configura Git para usar SSH en lugar de HTTPS
+- Muestra tu clave pública para copiarla a GitHub
+
+### Verificar configuración SSH
+
+```bash
+# Probar conexión con GitHub
+ssh -T git@github.com
+
+# Ver claves cargadas en ssh-agent
+ssh-add -l
+
+# Ver tu clave pública
+cat ~/.ssh/id_ed25519.pub
+```
+
 ## Post-Instalación
 
 Después de ejecutar el script:
 
-1. **Configura .private**
+1. **Añade tu SSH key a GitHub** (si aún no lo hiciste):
+   - Copia la clave pública mostrada al final de la instalación
+   - Ve a: https://github.com/settings/keys
+   - Click en "New SSH key" y pega tu clave
+   - Verifica con: `ssh -T git@github.com`
+
+2. **Configura .private**
    ```bash
    cp .private.example ~/.private
    nano ~/.private
    ```
 
-2. **Reinicia la terminal** o ejecuta:
+3. **Reinicia la terminal** o ejecuta:
    ```bash
    source ~/.zshrc
    ```
 
-3. **Verifica instalaciones**:
+4. **Verifica instalaciones**:
    ```bash
    uv --version
    go version
@@ -178,6 +250,8 @@ bun upgrade
 - Requiere permisos de administrador para algunas configuraciones
 - Los dotfiles existentes se respaldan antes de crear symlinks
 - El script es idempotente (puede ejecutarse múltiples veces)
+- Las claves SSH se generan automáticamente si no existen
+- **IMPORTANTE:** Las claves privadas SSH nunca se incluyen en el repositorio
 
 ## Referencias
 

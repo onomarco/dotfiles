@@ -119,6 +119,47 @@ fi
 echo ""
 
 ###############################################################################
+# Check 6: SSH Keys for GitHub                                               #
+###############################################################################
+
+echo "Checking SSH keys for GitHub..."
+SSH_KEY_EXISTS=false
+
+# Check for common SSH key types
+for key_type in id_ed25519 id_rsa id_ecdsa; do
+    if [ -f "$HOME/.ssh/${key_type}" ]; then
+        SSH_KEY_EXISTS=true
+        print_success "SSH key found: ~/.ssh/${key_type}"
+
+        # Check if key is added to ssh-agent
+        if ssh-add -l &>/dev/null | grep -q "$key_type"; then
+            print_info "Key is loaded in ssh-agent"
+        else
+            print_warning "Key not loaded in ssh-agent (will be configured during install)"
+        fi
+        break
+    fi
+done
+
+if [ "$SSH_KEY_EXISTS" = false ]; then
+    print_warning "No SSH keys found in ~/.ssh/"
+    print_info "SSH keys will be generated during installation"
+    print_info "Or generate manually: ssh-keygen -t ed25519 -C \"your@email.com\""
+fi
+
+# Test GitHub SSH connection (only if key exists)
+if [ "$SSH_KEY_EXISTS" = true ]; then
+    print_info "Testing GitHub SSH connection..."
+    if ssh -T git@github.com 2>&1 | grep -q "successfully authenticated"; then
+        print_success "GitHub SSH authentication working"
+    else
+        print_warning "GitHub SSH not configured yet"
+        print_info "After installation, add your public key to: https://github.com/settings/keys"
+    fi
+fi
+echo ""
+
+###############################################################################
 # Optional Checks                                                             #
 ###############################################################################
 
