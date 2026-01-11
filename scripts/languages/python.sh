@@ -19,10 +19,10 @@ DEFAULT_PYTHON_VERSION="3.12"
 
 # Global packages to install with uv tool (optional, add as needed)
 UV_TOOLS=(
-    # "ruff"           # Fast Python linter
-    # "black"          # Code formatter
-    # "ipython"        # Enhanced Python shell
-    # "pytest"         # Testing framework
+    "ruff"           # Fast Python linter
+    "black"          # Code formatter
+    "ipython"        # Enhanced Python shell
+    "pytest"         # Testing framework
 )
 
 ###############################################################################
