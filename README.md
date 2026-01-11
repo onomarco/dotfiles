@@ -130,7 +130,17 @@ cp .private.example ~/.private
 
 ### Lenguajes
 - **Python** - vía `uv` (múltiples versiones)
-- **Go** - última versión
+- **Go** - última versión con herramientas de desarrollo:
+  - `gopls` - Language server
+  - `goimports` - Auto-import
+  - `dlv` - Debugger
+  - `golangci-lint` - Linter
+  - `air` - Hot reload
+  - `goose` - Migraciones de base de datos
+  - `gotestsum` - Formato mejorado para test output
+  - `sqlc` - Generador de código SQL type-safe
+  - `mockgen` - Generador de mocks
+  - `swag` - Documentación Swagger
 - **Bun** - runtime JavaScript moderno
 
 ### CLI Tools Modernos

@@ -8,10 +8,24 @@
 
 # Go packages/tools to install (add more as needed)
 GO_TOOLS=(
+    # Language tooling
     "golang.org/x/tools/gopls@latest"              # Go language server
     "golang.org/x/tools/cmd/goimports@latest"      # Auto-import tool
     "github.com/go-delve/delve/cmd/dlv@latest"     # Debugger
     "github.com/golangci/golangci-lint/cmd/golangci-lint@latest"  # Linter
+
+    # Development tools
+    "github.com/air-verse/air@latest"              # Hot reload for development
+    "github.com/pressly/goose/v3/cmd/goose@latest" # Database migrations
+
+    # Testing tools
+    "gotest.tools/gotestsum@latest"                # Better test output formatter
+
+    # Code generation
+    "github.com/sqlc-dev/sqlc/cmd/sqlc@latest"     # Type-safe SQL code generator
+    "go.uber.org/mock/mockgen@latest"              # Mock generator for testing
+    # "github.com/google/wire/cmd/wire@latest"     # Dependency injection (optional)
+    "github.com/swaggo/swag/cmd/swag@latest"       # Swagger API documentation
 )
 
 # Go environment variables (extensible)
