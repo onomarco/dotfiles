@@ -31,17 +31,16 @@ install_bun() {
     print_info "Installing Bun..."
     curl -fsSL https://bun.sh/install | bash
 
-    # Add Bun to PATH
+    # Add Bun to PATH for current session
     export BUN_INSTALL="$HOME/.bun"
     export PATH="$BUN_INSTALL/bin:$PATH"
 
-    # Source the shell config to get bun in PATH
-    if [ -f "$HOME/.zshrc" ]; then
-        source "$HOME/.zshrc" 2>/dev/null || true
-    fi
-
-    if command_exists bun; then
-        print_success "Bun installed successfully: $(bun --version)"
+    # Verify installation by checking the binary directly
+    if [ -x "$HOME/.bun/bin/bun" ]; then
+        BUN_VERSION=$("$HOME/.bun/bin/bun" --version)
+        print_success "Bun installed successfully: $BUN_VERSION"
+        # Ensure bun is in PATH for subsequent commands
+        alias bun="$HOME/.bun/bin/bun"
     else
         print_error "Bun installation failed"
         return 1
@@ -59,7 +58,8 @@ configure_bun() {
 }
 
 install_global_packages() {
-    if ! command_exists bun; then
+    # Check if bun binary exists
+    if [ ! -x "$HOME/.bun/bin/bun" ] && ! command_exists bun; then
         print_warning "Bun not installed, skipping global packages"
         return 0
     fi
@@ -71,9 +71,15 @@ install_global_packages() {
 
     print_info "Installing global packages..."
 
+    # Use full path if command not in PATH
+    BUN_CMD="bun"
+    if ! command_exists bun && [ -x "$HOME/.bun/bin/bun" ]; then
+        BUN_CMD="$HOME/.bun/bin/bun"
+    fi
+
     for package in "${BUN_GLOBAL_PACKAGES[@]}"; do
         print_info "Installing $package..."
-        bun add -g "$package" || print_warning "Failed to install $package"
+        $BUN_CMD add -g "$package" || print_warning "Failed to install $package"
     done
 
     print_success "Global packages installed"
