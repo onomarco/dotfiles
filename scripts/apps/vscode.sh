@@ -12,7 +12,7 @@ VSCODE_EXTENSIONS=(
     "ms-python.vscode-pylance"             # Pylance
     "ms-python.pylint"                     # Pylint
     "ms-python.debugpy"                    # Python Debugger
-    "donjayamanne.python-environment-manager"  # Python Environment Manager
+    # "donjayamanne.python-environment-manager"  # Python Environment Manager
 
     # Go
     "golang.go"                            # Go extension
@@ -22,9 +22,9 @@ VSCODE_EXTENSIONS=(
     # "esbenp.prettier-vscode"             # Prettier (uncomment if needed)
 
     # General development
-    "editorconfig.editorconfig"            # EditorConfig support
-    "eamodio.gitlens"                      # GitLens
-    "github.copilot"                       # GitHub Copilot (if you have access)
+    # "editorconfig.editorconfig"            # EditorConfig support
+    # "eamodio.gitlens"                      # GitLens
+    # "github.copilot"                       # GitHub Copilot (if you have access)
 
     # Utilities
     # "streetsidesoftware.code-spell-checker"  # Spell checker (uncomment if needed)
