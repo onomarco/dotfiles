@@ -20,7 +20,7 @@ Antes de instalar, necesitas:
    ```bash
    xcode-select --install
    ```
-3. **Permisos de administrador** (contraseña sudo)
+3. **Permisos de administrador** - El script solicitará tu contraseña de macOS (la misma que usas para iniciar sesión). Nota: al escribirla no verás caracteres en pantalla por seguridad.
 4. **Conexión a internet** estable
 
 ### Verificar Prerrequisitos
@@ -28,6 +28,7 @@ Antes de instalar, necesitas:
 Ejecuta el script de verificación antes de instalar:
 
 ```bash
+chmod +x check-prereqs.sh
 ./check-prereqs.sh
 ```
 
@@ -47,10 +48,13 @@ Este script comprobará:
 git clone https://github.com/onomarco/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 
-# 2. Verificar prerrequisitos (recomendado)
+# 2. Dar permisos de ejecución a los scripts
+chmod +x check-prereqs.sh install.sh
+
+# 3. Verificar prerrequisitos (recomendado)
 ./check-prereqs.sh
 
-# 3. Ejecutar instalación
+# 4. Ejecutar instalación
 ./install.sh
 ```
 
