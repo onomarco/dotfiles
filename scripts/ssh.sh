@@ -34,7 +34,9 @@ if [ "$SSH_KEY_EXISTS" = false ]; then
     # Get email from git config or .private
     EMAIL=""
     if [ -f "$HOME/.private" ]; then
-        EMAIL=$(grep "GIT_AUTHOR_EMAIL" "$HOME/.private" | cut -d'"' -f2 2>/dev/null)
+        # Source the .private file to expand variables, then get the email
+        source "$HOME/.private" 2>/dev/null
+        EMAIL="$GIT_AUTHOR_EMAIL"
     fi
 
     if [ -z "$EMAIL" ]; then
