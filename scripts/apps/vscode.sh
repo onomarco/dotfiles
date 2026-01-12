@@ -117,7 +117,7 @@ print_info ""
 print_info "Installed extensions:"
 if command_exists code; then
     code --list-extensions | head -20
-    local total=$(code --list-extensions | wc -l)
+    total=$(code --list-extensions | wc -l)
     print_info "Total: $total extensions"
 else
     print_warning "VS Code CLI not available yet"
