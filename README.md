@@ -51,10 +51,14 @@ cd ~/dotfiles
 # 2. Dar permisos de ejecución a los scripts
 chmod +x check-prereqs.sh install.sh
 
-# 3. Verificar prerrequisitos (recomendado)
+# 3. Configurar información personal (recomendado)
+cp .private.example ~/.private
+nano ~/.private  # Edita con tu nombre y email
+
+# 4. Verificar prerrequisitos (recomendado)
 ./check-prereqs.sh
 
-# 4. Ejecutar instalación
+# 5. Ejecutar instalación
 ./install.sh
 ```
 

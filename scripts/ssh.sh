@@ -42,14 +42,23 @@ if [ "$SSH_KEY_EXISTS" = false ]; then
     fi
 
     if [ -z "$EMAIL" ]; then
-        print_info "Enter your email for SSH key:"
+        echo ""
+        print_warning "═══════════════════════════════════════════════════════════"
+        print_warning "  SSH Key Generation - Email Required"
+        print_warning "═══════════════════════════════════════════════════════════"
+        echo ""
+        print_info "Please enter your email address for the SSH key:"
+        echo -n "> "
         read -r EMAIL
+        echo ""
     fi
 
     if [ -z "$EMAIL" ]; then
         print_error "Email is required to generate SSH key"
-        print_info "You can generate it later with: ssh-keygen -t ed25519 -C \"your@email.com\""
-        return 1
+        print_info "You can skip SSH configuration and generate it later with:"
+        print_info "  ssh-keygen -t ed25519 -C \"your@email.com\""
+        print_warning "Skipping SSH configuration..."
+        return 0
     fi
 
     # Generate ed25519 key (recommended by GitHub)
