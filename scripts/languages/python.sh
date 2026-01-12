@@ -39,17 +39,33 @@ install_uv() {
     fi
 
     print_info "Installing uv..."
-    curl -LsSf https://astral.sh/uv/install.sh | sh
 
-    # Add uv to PATH
-    export PATH="$HOME/.cargo/bin:$PATH"
-
-    if command_exists uv; then
-        print_success "uv installed successfully: $(uv --version)"
-    else
-        print_error "uv installation failed"
-        return 1
+    # Try Homebrew first (more reliable on macOS)
+    if command_exists brew; then
+        print_info "Installing uv via Homebrew..."
+        if brew install uv; then
+            print_success "uv installed successfully via Homebrew: $(uv --version)"
+            return 0
+        else
+            print_warning "Homebrew installation failed, trying alternative method..."
+        fi
     fi
+
+    # Fallback to official installer
+    print_info "Installing uv via official installer..."
+    if curl -LsSf https://astral.sh/uv/install.sh | sh; then
+        # Add uv to PATH
+        export PATH="$HOME/.cargo/bin:$PATH"
+
+        if command_exists uv; then
+            print_success "uv installed successfully: $(uv --version)"
+            return 0
+        fi
+    fi
+
+    print_error "uv installation failed"
+    print_info "Please try manual installation: brew install uv"
+    return 1
 }
 
 install_python_versions() {
