@@ -37,6 +37,7 @@ BREW_FORMULAE=(
     # Development tools
     "make"
     "cmake"
+    "go"              # Go programming language
 
     # Add more packages here as needed
 )
