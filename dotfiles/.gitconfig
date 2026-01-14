@@ -14,22 +14,22 @@
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
 [init]
-    defaultBranch = main
+	defaultBranch = main
 
 [push]
-    default = simple
-    autoSetupRemote = true
+	default = simple
+	autoSetupRemote = true
     # Automatically push relevant tags
     followTags = true
 
 [pull]
-    rebase = false
+	rebase = false
 
 [fetch]
     prune = true
 
 [diff]
-    tool = vscode
+	tool = vscode
     # Detect copies as well as renames
     renames = copies
 
@@ -37,10 +37,10 @@
     prompt = false
 
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+	cmd = code --wait --diff $LOCAL $REMOTE
 
 [merge]
-    tool = vscode
+	tool = vscode
     # Include summaries of merged commits in newly created merge commit messages
     log = true
 
@@ -49,26 +49,26 @@
     keepBackup = false
 
 [mergetool "vscode"]
-    cmd = code --wait $MERGED
+	cmd = code --wait $MERGED
 
 [color]
-    ui = auto
+	ui = auto
 
 [color "branch"]
-    current = yellow reverse
-    local = yellow
-    remote = green
+	current = yellow reverse
+	local = yellow
+	remote = green
 
 [color "diff"]
-    meta = yellow bold
-    frag = magenta bold
-    old = red bold
-    new = green bold
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
 
 [color "status"]
-    added = yellow
-    changed = green
-    untracked = cyan
+	added = yellow
+	changed = green
+	untracked = cyan
 
 [alias]
     # Short status
@@ -126,10 +126,10 @@
     ignored = !git ls-files -v | grep "^[[:lower:]]"
 
 [url "git@github.com:"]
-    insteadOf = https://github.com/
+	insteadOf = https://github.com/
 
 [credential]
-    helper = osxkeychain
+	helper = osxkeychain
 
 [help]
     # Automatically correct and execute mistyped commands

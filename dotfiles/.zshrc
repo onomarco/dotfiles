@@ -145,11 +145,6 @@ extract() {
     fi
 }
 
-# Quick git status
-gs() {
-    git status
-}
-
 # Quick git add, commit, push
 gacp() {
     git add .
@@ -165,3 +160,15 @@ gacp() {
 # if command -v neofetch &> /dev/null; then
 #     neofetch
 # fi
+
+# AWS CLI completion (zsh)
+autoload -Uz bashcompinit && bashcompinit
+complete -C '/opt/homebrew/bin/aws_completer' aws
+
+# AWS Configuration
+export AWS_DEFAULT_REGION="eu-west-1"
+export AWS_DEFAULT_OUTPUT="json"
+export AWS_PAGER=""  # Disable pager for long outputs
+
+# Uncomment to set a default profile
+# export AWS_PROFILE="dev"
